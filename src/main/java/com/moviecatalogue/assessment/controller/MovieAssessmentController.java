@@ -56,6 +56,7 @@ public class MovieAssessmentController {
 	
 	@DeleteMapping("deleteRated")
 	public ResponseEntity<?> deleteRated() {
+		
 		return ResponseEntity.ok(assessmentService.listMovie());
 	}
 	
