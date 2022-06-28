@@ -5,14 +5,11 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.reactive.ReactorClientHttpConnector;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Base64Utils;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -65,9 +62,9 @@ public class MovieAssessmentImpl implements MovieAssessmentService{
 			
 			//llamada servicio
 			WebClient client = webClientBuilder.clientConnector(new ReactorClientHttpConnector(HttpClient.from(tcpClient)))
-					.baseUrl("http://businessdomain-moviedataimdb/movieImdb")
+					.baseUrl("https://moviedataimdbheroku.herokuapp.com/movieImdb")
 					.defaultHeaders(header -> header.setBasicAuth("admin", "admin"))
-					.defaultUriVariables(Collections.singletonMap("url", "http://businessdomain-moviedataimdb/movieImdb")).build();
+					.defaultUriVariables(Collections.singletonMap("url", "https://moviedataimdbheroku.herokuapp.com/movieImdb")).build();
 			JsonNode block = client
 					.method(HttpMethod.GET).uri(uriBuilder -> uriBuilder.path("/getIdParameter")
 							.queryParam("i", idMovie).queryParam("plot", "full").build())
@@ -94,8 +91,9 @@ public class MovieAssessmentImpl implements MovieAssessmentService{
 			return ResponseEntity.ok(InvoiceToInvoiceRespose);
 		} catch (Exception e) {
 			BussinesRuleException exception = new BussinesRuleException("404", "No encontrada la pelicula", HttpStatus.NOT_FOUND);
-			throw exception;
 		}
+		
+		return (ResponseEntity<AssessmentResponse>) ResponseEntity.notFound();
 	}
 	
 	@Override
