@@ -57,7 +57,7 @@ public class MovieAssessmentImpl implements MovieAssessmentService{
 	@Override
 	public ResponseEntity<AssessmentResponse> post(String idMovie, long rating, long idUser) throws BussinesRuleException {
 		MovieImdbResponse movieResponse = new MovieImdbResponse();
-		AssessmentResponse InvoiceToInvoiceRespose = new AssessmentResponse();
+		AssessmentResponse invoiceToInvoiceRespose = new AssessmentResponse();
 		try {
 			
 			//llamada servicio
@@ -65,19 +65,19 @@ public class MovieAssessmentImpl implements MovieAssessmentService{
 					.baseUrl("https://moviedataimdbheroku.herokuapp.com/movieImdb")
 					.defaultHeaders(header -> header.setBasicAuth("admin", "admin"))
 					.defaultUriVariables(Collections.singletonMap("url", "https://moviedataimdbheroku.herokuapp.com/movieImdb")).build();
-			JsonNode block = client
+		   JsonNode block = client
 					.method(HttpMethod.GET).uri(uriBuilder -> uriBuilder.path("/getIdParameter")
 							.queryParam("i", idMovie).queryParam("plot", "full").build())
 					.retrieve().bodyToMono(JsonNode.class).block();
 			ObjectMapper objectMapper = new ObjectMapper();
-	
 			movieResponse = objectMapper.convertValue(block, MovieImdbResponse.class);
+		} catch (Exception e) {
+			BussinesRuleException exception = new BussinesRuleException("404", "No encontrada la pelicula", HttpStatus.NOT_FOUND);
+			throw exception;
+		}
 		
-			if(movieResponse != null && !movieResponse.getResponse()) {
-				 BussinesRuleException exception = new BussinesRuleException("404", "No encontrada la pelicula", HttpStatus.NOT_FOUND);
-	    		 throw exception;
-			}
-			
+	
+		try {
 			Movie saveMovie = new Movie();
 			saveMovie.setNombre(movieResponse.getTitle());
 			saveMovie.setDescripcion(movieResponse.getPlot());
@@ -87,13 +87,14 @@ public class MovieAssessmentImpl implements MovieAssessmentService{
 			saveAssessment.setNota(rating);
 			saveAssessment.setId_usuario(idUser);
 			saveAssessment = assessmentRepository.save(saveAssessment);
-			InvoiceToInvoiceRespose = irspm.InvoiceToInvoiceAssessmentRespose(saveAssessment);
-			return ResponseEntity.ok(InvoiceToInvoiceRespose);
+			invoiceToInvoiceRespose = irspm.InvoiceToInvoiceAssessmentRespose(saveAssessment);
+		
 		} catch (Exception e) {
-			BussinesRuleException exception = new BussinesRuleException("404", "No encontrada la pelicula", HttpStatus.NOT_FOUND);
+			BussinesRuleException exception = new BussinesRuleException("504", e.getMessage(), HttpStatus.SERVICE_UNAVAILABLE);
+			throw exception;
 		}
 		
-		return (ResponseEntity<AssessmentResponse>) ResponseEntity.notFound();
+		return ResponseEntity.ok(invoiceToInvoiceRespose);
 	}
 	
 	@Override
