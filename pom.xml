@@ -117,20 +117,66 @@
     		<groupId>org.springframework.security</groupId>
     		<artifactId>spring-security-web</artifactId>
 		</dependency>
+		<dependency>
+		    <groupId>org.mockito</groupId>
+		    <artifactId>mockito-all</artifactId>
+		    <version>2.0.2-beta</version>
+		    <scope>test</scope>
+		</dependency>
+		<dependency>
+			  <groupId>junit</groupId>
+			  <artifactId>junit</artifactId>
+			  <scope>test</scope>
+		</dependency>
+		<dependency>
+		    <groupId>org.junit.jupiter</groupId>
+		    <artifactId>junit-jupiter-api</artifactId>
+		    <scope>test</scope>
+		</dependency>
+		<dependency>
+		    <groupId>org.mockito</groupId>
+		    <artifactId>mockito-inline</artifactId>
+		    <version>3.4.6</version>
+		    <scope>test</scope>
+		</dependency>
+		<!-- webclient mock -->
+		<dependency>
+		    <groupId>com.squareup.okhttp3</groupId>
+		    <artifactId>mockwebserver</artifactId>
+		    <version>4.9.1</version>
+		    <scope>test</scope>
+		</dependency>
+		<dependency>
+		    <groupId>com.squareup.okhttp3</groupId>
+		    <artifactId>okhttp</artifactId>
+		    <version>4.9.1</version>
+		    <scope>test</scope>
+		</dependency>
     </dependencies>
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
+			 <plugin>
+			    <groupId>org.apache.maven.plugins</groupId>
+			    <artifactId>maven-surefire-plugin</artifactId>
+			    <dependencies>
+			        <dependency>
+			            <groupId>org.junit.platform</groupId>
+			            <artifactId>junit-platform-surefire-provider</artifactId>
+			            <version>1.2.0-M1</version>
+			        </dependency>
+			        <dependency>
+			            <groupId>org.junit.jupiter</groupId>
+			            <artifactId>junit-jupiter-engine</artifactId>
+			            <version>5.2.0-M1</version>
+			        </dependency>
+			    </dependencies>
+			</plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
                     <source>${maven.compiler.source}</source>
                     <target>${maven.compiler.source}</target>
-                    <!-- generate mappers -->
                     <annotationProcessorPaths>
                         <path>
                             <groupId>org.projectlombok</groupId>
@@ -153,7 +199,38 @@
                         <endorseddirs>${endorsed.dir}</endorseddirs>
                     </compilerArguments>
                 </configuration>
-            </plugin> 
+            </plugin>
+            <!-- JaCoCo code coverage plugin -->
+			<plugin>
+				<groupId>org.jacoco</groupId>
+			    <artifactId>jacoco-maven-plugin</artifactId>
+			    <version>0.8.5</version>
+			    <configuration>
+			    	<skip>${maven.test.skip}</skip>
+			    	<destFile>${basedir}/target/coverage-reports/jacoco-unit.exec</destFile>
+			    	<dataFile>${basedir}/target/coverage-reports/jacoco-unit.exec</dataFile>
+			    	<output>file</output>
+			    	<append>true</append>
+			    	<excludes>
+			    		<exclude>*MethodAccess</exclude>
+			    	</excludes>
+			    </configuration>
+			    <executions>
+			        <execution>
+			            <goals>
+			                <goal>prepare-agent</goal>
+			            </goals>
+			            <phase>test-compile</phase>
+			        </execution>
+			        <execution>
+			            <id>report</id>
+			            <phase>prepare-package</phase>
+			            <goals>
+			                <goal>report</goal>
+			            </goals>
+			        </execution>
+			    </executions>
+			</plugin>
         </plugins>
     </build>
 </project>

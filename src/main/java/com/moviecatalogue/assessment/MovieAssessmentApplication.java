@@ -7,6 +7,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.web.client.RestTemplate;
 
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
@@ -76,4 +78,10 @@ public class MovieAssessmentApplication {
           authorizationScopes[0] = authorizationScope;
           return Arrays.asList(new SecurityReference("JWT", authorizationScopes));
       }
+      
+      @Bean
+      public RestTemplate getRestTemplate() {
+         return new RestTemplate();
+      }
+      
 }

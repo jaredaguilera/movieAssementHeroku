@@ -3,16 +3,16 @@ package com.moviecatalogue.assessment.entities;
 import java.io.Serializable;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="assessment") 
 public class Assessment implements Serializable {
 	
 	/**
@@ -23,17 +23,17 @@ public class Assessment implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id_valoracion;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = {CascadeType.ALL}) 
 	@JoinColumn(name = "id_pelicula")
 	private Movie movie;
-	private long id_usuario;
+	private String id_usuario;
 	private long nota;
 	
 	public Assessment() {
 		super();
 	}
 
-	public Assessment(long id_valoracion, Movie movie, long id_usuario, long nota) {
+	public Assessment(long id_valoracion, Movie movie, String id_usuario, long nota) {
 		super();
 		this.id_valoracion = id_valoracion;
 		this.movie = movie;
@@ -53,10 +53,10 @@ public class Assessment implements Serializable {
 	public void setMovie(Movie movie) {
 		this.movie = movie;
 	}
-	public long getId_usuario() {
+	public String getId_usuario() {
 		return id_usuario;
 	}
-	public void setId_usuario(long id_usuario) {
+	public void setId_usuario(String id_usuario) {
 		this.id_usuario = id_usuario;
 	}
 	public long getNota() {
