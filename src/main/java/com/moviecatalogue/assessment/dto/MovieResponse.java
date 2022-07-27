@@ -12,7 +12,7 @@ public class MovieResponse implements Serializable {
 	private static final long serialVersionUID = -2855170449575460962L;
 	
 	@ApiModelProperty(name = "id_pelicula", required = true,example = "tt234234",value = "Unique Id of id_pelicula after it's created")
-	private long id_pelicula;
+	private String id_pelicula;
 	
 	@ApiModelProperty(name = "nombre", required = true,example = "yes, sr",value = "name of Movie after it's created")
 	private String nombre;
@@ -32,7 +32,7 @@ public class MovieResponse implements Serializable {
 	}
 
 
-	public MovieResponse(long id_pelicula, String nombre, String url_imagen, String descripcion, String categoria) {
+	public MovieResponse(String id_pelicula, String nombre, String url_imagen, String descripcion, String categoria) {
 		super();
 		this.id_pelicula = id_pelicula;
 		this.nombre = nombre;
@@ -42,12 +42,12 @@ public class MovieResponse implements Serializable {
 	}
 
 
-	public long getId_pelicula() {
+	public String getId_pelicula() {
 		return id_pelicula;
 	}
 
 
-	public void setId_pelicula(long id_pelicula) {
+	public void setId_pelicula(String id_pelicula) {
 		this.id_pelicula = id_pelicula;
 	}
 

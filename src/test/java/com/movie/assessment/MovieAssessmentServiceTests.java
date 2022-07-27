@@ -69,7 +69,7 @@ class MovieAssessmentServiceTests {
 		movieImdbResponse.setPoster("url_imagen");
 		Movie movie = new Movie();
 		movie.setDescripcion(movieImdbResponse.getPlot());
-		movie.setId_pelicula(0);
+		movie.setId_pelicula("0");
 		movie.setNombre(movieImdbResponse.getTitle());
 		movie.setUrl_imagen(movieImdbResponse.getPoster());
 		saveAssessment.setMovie(movie);

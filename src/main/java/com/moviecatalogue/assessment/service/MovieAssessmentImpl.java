@@ -64,6 +64,7 @@ public class MovieAssessmentImpl implements MovieAssessmentService{
 		
 		try {
 			Movie saveMovie = new Movie();
+			saveMovie.setId_pelicula(movieResponse.getImdbID());
 			saveMovie.setNombre(movieResponse.getTitle());
 			saveMovie.setDescripcion(movieResponse.getPlot());
 			saveMovie.setUrl_imagen(movieResponse.getPoster());
