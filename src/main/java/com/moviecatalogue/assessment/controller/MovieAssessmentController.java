@@ -71,7 +71,7 @@ public class MovieAssessmentController {
         @ApiResponse(code = 500, message = "Internal error"),
         @ApiResponse(code = 404, message = "Not Found Movie"),
         @ApiResponse(code = 201, message = "Created")})
-    @PutMapping("updateRated//{id}")
+    @PutMapping("updateRated/{id}")
     public ResponseEntity<?> put(@PathVariable long id, @RequestBody Assessment assessment) throws BussinesRuleException {
     	return assessmentService.updateById(id, assessment);
     }

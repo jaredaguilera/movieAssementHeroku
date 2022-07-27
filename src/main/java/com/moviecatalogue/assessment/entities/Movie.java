@@ -18,14 +18,15 @@ public class Movie implements Serializable {
 	 */
 	private static final long serialVersionUID = -2855170449575460962L;
 	@Id
-	private String id_pelicula;
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private long id_pelicula;
 	private String nombre;
 	private String url_imagen;
 	@Column( length = 100000 )
 	private String descripcion;
 	private String categoria;
 	
-	public Movie(String id_pelicula, String nombre, String url_imagen, String descripcion, String categoria,
+	public Movie(long id_pelicula, String nombre, String url_imagen, String descripcion, String categoria,
 			Assessment assessment) {
 		super();
 		this.id_pelicula = id_pelicula;
@@ -40,13 +41,13 @@ public class Movie implements Serializable {
 		super();
 	}
 
-	public String getId_pelicula() {
+	public long getId_pelicula() {
 		return id_pelicula;
 	}
 
 
-	public void setId_pelicula(String string) {
-		this.id_pelicula = string;
+	public void setId_pelicula(long string) {
+		this.id_pelicula = id_pelicula;
 	}
 
 
