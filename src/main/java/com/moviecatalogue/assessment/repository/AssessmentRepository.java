@@ -11,6 +11,6 @@ import com.moviecatalogue.assessment.entities.Assessment;
 
 public interface AssessmentRepository extends JpaRepository<Assessment, Long> {
 	
-	@Query(value = "select a from Assessment a where id_usuario like :id_user")
+	@Query(value = "select a from Assessment a where a.id_usuario like :id_user")
 	List<Assessment> findAllByUser(@Param("id_user") String id_user);
 }
