@@ -17,6 +17,7 @@ public class Movie implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -2855170449575460962L;
+	@Id
 	private String id_pelicula;
 	private String nombre;
 	private String url_imagen;
