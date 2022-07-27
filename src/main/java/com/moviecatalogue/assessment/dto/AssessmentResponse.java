@@ -17,7 +17,7 @@ public class AssessmentResponse implements Serializable {
 	private MovieResponse movie;
 	
 	@ApiModelProperty(name = "id_usuario", required = true,example = "tt234234",value = " id_usuario of Assessment after it's created")
-	private long id_usuario;
+	private String id_usuario;
 	
 	@ApiModelProperty(name = "nota", required = true,example = "343",value = "nota of Assessment after it's created")
 	private long nota;
@@ -26,7 +26,7 @@ public class AssessmentResponse implements Serializable {
 		super();
 	}
 
-	public AssessmentResponse(long id_valoracion, MovieResponse movie, long id_usuario, long nota) {
+	public AssessmentResponse(long id_valoracion, MovieResponse movie, String id_usuario, long nota) {
 		super();
 		this.id_valoracion = id_valoracion;
 		this.movie = movie;
@@ -46,10 +46,10 @@ public class AssessmentResponse implements Serializable {
 	public void setMovie(MovieResponse movie) {
 		this.movie = movie;
 	}
-	public long getId_usuario() {
+	public String getId_usuario() {
 		return id_usuario;
 	}
-	public void setId_usuario(long id_usuario) {
+	public void setId_usuario(String id_usuario) {
 		this.id_usuario = id_usuario;
 	}
 	public long getNota() {

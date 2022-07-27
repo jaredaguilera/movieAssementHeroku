@@ -114,7 +114,7 @@ class MovieAssessmentServiceTests {
 		when(assessmentRepository.findAll()).thenReturn(saveAssessmentList);
 		when(irspm.InvoiceToInvoiceAssessmentRespose(saveAssessment)).thenReturn(invoiceToInvoiceRespose);
 		AssessmentResponse invoiceToInvoiceRespose = new AssessmentResponse();
-		invoiceToInvoiceRespose.setId_usuario(0);
+		invoiceToInvoiceRespose.setId_usuario("0");
 		invoiceToInvoiceRespose.setMovie(null);
 		invoiceToInvoiceRespose.setId_valoracion(0);
 		invoiceToInvoiceRespose.setNota(0);
