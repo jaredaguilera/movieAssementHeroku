@@ -46,7 +46,7 @@ public class Movie implements Serializable {
 	}
 
 
-	public void setId_pelicula(long string) {
+	public void setId_pelicula(long id_pelicula) {
 		this.id_pelicula = id_pelicula;
 	}
 
